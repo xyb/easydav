@@ -8,6 +8,7 @@ structure in JSON format, using an easy-to-deploy Docker setup.
 
 - **File Uploads via WebDAV**: Securely upload files to a specified directory.
 - **Directory Listing in JSON**: View files and directories in a simple JSON format.
+- **File Downloads**: Easily download files via HTTP.
 - **Authentication**: Secure access with HTTP Basic Authentication.
 - **Flexible Deployment**: Easily configurable using environment variables.
 
@@ -67,6 +68,11 @@ structure in JSON format, using an easy-to-deploy Docker setup.
    - **URL**: `http://localhost:8080/files/`
    - The output will display the files and directories in JSON format.
 
+6. Download files:
+
+   - **URL**: http://localhost:8080/files/filename
+   - Replace `filename` with the actual name of the file you want to download.
+
 ## Environment Variables
 
 You can customize the service by setting the following environment variables:
@@ -85,6 +91,8 @@ You can use any WebDAV client (like `curl`, `Cyberduck`, etc.) to upload files:
 
 ```bash
 curl -u user:pwd -T example.txt http://localhost:8080/upload/
+# or specify the path
+curl -u user:pwd -T example.txt http://localhost:8080/upload/subdir/new.txt
 ```
 
 ### View Files and Directories in JSON
@@ -115,6 +123,18 @@ Sample JSON response:
     ]
 }
 ```
+
+### Download Files
+
+You can directly download files that have been uploaded using a WebDAV client, or by visiting the `/files/` URL followed by the file name.
+
+For example, to download `example.txt`:
+
+```bash
+curl -u user:pwd -O http://localhost:8080/files/example.txt
+```
+
+This will download the file example.txt to your local machine.
 
 ## Customizing the Configuration
 
