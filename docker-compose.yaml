@@ -1,7 +1,7 @@
 services:
-  nginx-webdav:
-    image: linuxserver/nginx
-    container_name: nginx-webdav
+  easydav:
+    image: xieyanbo/easydav
+    container_name: easydav
     environment:
       - PUID=1000
       - PGID=1000
@@ -9,9 +9,7 @@ services:
       - WEBDAV_USER=user
       - WEBDAV_PASSWORD=pwd
     volumes:
-      - ./config:/config
       - ./data:/data
     ports:
       - 8080:80
     restart: unless-stopped
-    entrypoint: ["/bin/bash", "/config/init.sh"]

@@ -1,8 +1,6 @@
 # EasyDAV
 
-EasyDAV is a lightweight file upload and query server based on Nginx.
-It allows you to upload files via WebDAV and explore the directory
-structure in JSON format, using an easy-to-deploy Docker setup.
+EasyDAV is a lightweight file upload and query server based on Nginx. It allows you to upload files via WebDAV and explore the directory structure in JSON format, using an easy-to-deploy Docker setup.
 
 ## Features
 
@@ -21,54 +19,51 @@ structure in JSON format, using an easy-to-deploy Docker setup.
 
 ### Setup and Configuration
 
-1. Clone the repository:
+1. Run the service using Docker directly:
 
    ```bash
-   git clone https://github.com/xyb/easydav.git
-   cd easydav
+   docker run -d -p 8080:80 xieyanbo/easydav
    ```
 
-2. Create a `docker-compose.yml` file (sample is provided below):
+   Alternatively, create a `docker-compose.yml` file using the sample provided below:
 
    ```yaml
    version: "3.8"
 
    services:
      nginx-webdav:
-       image: linuxserver/nginx
-       container_name: nginx-webdav
+       image: xieyanbo/easydav
+       container_name: easydav
        environment:
-         - PUID=1000               # Optional, set user ID for permissions
-         - PGID=1000               # Optional, set group ID
-         - TZ=Etc/UTC              # Timezone
-         - WEBDAV_USER=user        # WebDAV username
-         - WEBDAV_PASSWORD=pwd     # WebDAV password
+         - PUID=1000
+         - PGID=1000
+         - TZ=Etc/UTC
+         - WEBDAV_USER=user
+         - WEBDAV_PASSWORD=pwd
        volumes:
-         - ./config/nginx:/config  # Mount configuration files
-         - ./data:/data            # Mount the directory for uploads
+         - ./data:/data
        ports:
-         - 8080:80                 # Expose port 80 on 8080
+         - 8080:80
        restart: unless-stopped
-       entrypoint: ["/bin/bash", "/config/init.sh"]
    ```
 
-3. Run the service:
+   Then, launch the service with:
 
    ```bash
    docker-compose up -d
    ```
 
-4. Access the WebDAV file upload interface:
+2. Access the WebDAV file upload interface:
 
    - **URL**: `http://localhost:8080/upload/`
    - **Username and Password**: The credentials you set in the environment variables (`WEBDAV_USER`, `WEBDAV_PASSWORD`).
 
-5. View directory structure in JSON format:
+3. View directory structure in JSON format:
 
    - **URL**: `http://localhost:8080/files/`
    - The output will display the files and directories in JSON format.
 
-6. Download files:
+4. Download files:
 
    - **URL**: http://localhost:8080/files/filename
    - Replace `filename` with the actual name of the file you want to download.
@@ -101,6 +96,8 @@ Access the `/files/` URL to get a JSON response listing the contents of the dire
 
 ```bash
 curl -u user:pwd http://localhost:8080/files/
+# or query by the dir name
+curl -u user:pwd http://localhost:8080/files/subdir/
 ```
 
 Sample JSON response:
