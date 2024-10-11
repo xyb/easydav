@@ -2,6 +2,10 @@
 
 EasyDAV is a lightweight file upload and query server based on Nginx. It allows you to upload files via WebDAV and explore the directory structure in JSON format, using an easy-to-deploy Docker setup.
 
+[![Docker Image Version](https://img.shields.io/docker/v/xieyanbo/easydav)](https://hub.docker.com/r/xieyanbo/easydav)
+[![Docker Image Size](https://img.shields.io/docker/image-size/xieyanbo/easydav)](https://hub.docker.com/r/xieyanbo/easydav)
+[![GitHub License](https://img.shields.io/github/license/xyb/easydav)](https://github.com/xyb/easydav)
+
 ## Features
 
 - **File Uploads via WebDAV**: Securely upload files to a specified directory.
